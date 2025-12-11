@@ -18,6 +18,7 @@ const ModalCard = styled.div`
   max-width: 400px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  position: relative;
 `;
 
 const Image = styled.img`
@@ -45,14 +46,20 @@ const Price = styled.p`
 `;
 
 const CloseButton = styled.button`
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: black;
   background: none;
   border: none;
-  color: #333;
-  font-size: 1.4rem;
-  position: absolute;
-  top: 10px;
-  right: 16px;
+  font-size: 1.8rem;
+  width: 36px;
+  height: 36px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
 `;
 
 const DishModalStyled = {

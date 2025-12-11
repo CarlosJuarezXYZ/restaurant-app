@@ -1,5 +1,6 @@
 import { type FC, type ReactNode } from "react";
 import { HeaderStyled } from "./Header.styled";
+import { Link } from "react-scroll";
 
 interface HeaderProps {
   Nav: ReactNode;
@@ -18,8 +19,8 @@ const Header: FC<HeaderProps> = ({ Nav }) => {
           Descubre los sabores más exquisitos preparados por nuestros chefs.
           Ingredientes frescos, ambiente único, y la mejor atención.
         </p>
-        <OrderButton onClick={() => alert("Llevándote a la carta...")}>
-          Ordene
+        <OrderButton >
+          <Link to="dishes" style={{color:"#fff"}} duration={500}>Ordena Ahora</Link>
         </OrderButton>
       </Content>
     </HeaderContainer>

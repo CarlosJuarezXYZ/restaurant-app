@@ -15,8 +15,8 @@ const Navbar: React.FC = () => {
       </LogoSection>
       <Nav>
         <Link to="init" smooth={true} duration={500}>Inicio</Link>
-        <Link to="dishes" smooth={true} duration={500}>Platos</Link>
-        <Link to="comments" smooth={true} duration={500}>Comentarios</Link>
+        <Link to="dishes" smooth={true} duration={500} offset={-60}>Platos</Link>
+        <Link to="comments" smooth={true} duration={500} offset={-40}>Comentarios</Link>
         <Link to="ubication" smooth={true} duration={500}>Ubicanos</Link>
       </Nav>
     </NavbarContainer>

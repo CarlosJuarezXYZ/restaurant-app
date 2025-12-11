@@ -5,12 +5,7 @@ const NavbarContainer = styled.header`
   top: 10px;
   left: 20px;
   right: 20px;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.2),
-    rgba(230, 240, 255, 0.2)
-  );
-  color: white;
+  background: rgba(97, 15, 9, 0.8);
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   color: ${({ theme }) => theme.colors.textLight};
   display: flex;
