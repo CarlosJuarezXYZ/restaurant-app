@@ -39,3 +39,35 @@ export const commentReducer = (
       return state;
   }
 };
+
+type ActionLoading = | {type:"FETCH_START"} | {type:"FETCH_END"};
+
+interface LoadingState {
+  isFetching:boolean;
+  loadingCount:number;
+};
+
+const initialLoadingState:LoadingState = {
+  isFetching:false,
+  loadingCount:0,
+};
+
+export const loadingReducer = (state:LoadingState = initialLoadingState,action:ActionLoading):LoadingState => {
+  switch(action.type){
+    case"FETCH_START":
+    return {
+      ...state,
+      isFetching:true,
+      loadingCount:state.loadingCount + 1,
+    }
+    case"FETCH_END":
+    const newCount = Math.max(0,state.loadingCount -1);
+    return {
+      ...state,
+      isFetching: newCount > 0,
+      loadingCount:newCount
+    }
+    default:
+      return state;
+  }
+}

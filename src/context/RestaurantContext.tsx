@@ -11,12 +11,15 @@ import {
   categoryReducer,
   commentReducer,
   dishReducer,
+  loadingReducer,
 } from "./RestaurantReducer";
 
 interface RestaurantState {
   dishes: Dish[];
   categories: Category[];
   comments: CommentRestaurant[];
+  isFetching: boolean;
+  loadingCount:number;
 }
 
 type RestaurantAction =
@@ -28,16 +31,25 @@ const initialState: RestaurantState = {
   dishes: [],
   categories: [],
   comments: [],
+  isFetching:false,
+  loadingCount:0,
 };
 
 export const restaurantReducer = (
   state: RestaurantState,
   action: RestaurantAction
 ): RestaurantState => {
+  const loading = loadingReducer({
+    isFetching:state.isFetching,
+    loadingCount:state.loadingCount
+  },action as any);
+
   return {
     dishes: dishReducer(state.dishes, action as any),
     categories: categoryReducer(state.categories, action as any),
     comments: commentReducer(state.comments, action as any),
+    isFetching: loading.isFetching,
+    loadingCount: loading.loadingCount,
   };
 };
 
