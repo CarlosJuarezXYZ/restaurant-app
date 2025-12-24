@@ -7,6 +7,7 @@ import { fetchCategories, fetchDish } from "../../context/RestaurantAction";
 import { useRestaurantContext } from "../../context/RestaurantContext";
 import ContainerDishStyled from "./Dish.styled";
 import DishCardSkeleton from "../../components/DishCard/components/DishCardSkeleton/DishCard.skeleton";
+import { ErrorPageDish } from "../../components/ErrorPageDish/ErrorPageDish";
 
 const { ContainerDish, Grid } = ContainerDishStyled;
 
@@ -14,6 +15,7 @@ export const DishesScreen = () => {
   const [selectedCategory, setSelectedCategory] = useState("entradas");
   const [selectedDish, setSelectedDish] = useState<Dish | null>(null);
   const { state, dispatch } = useRestaurantContext();
+  const [error, setError] = useState<Boolean>(false);
   const categories = state.categories;
   const dishes = state.dishes;
   const isFetching = state.isFetching;
@@ -31,10 +33,18 @@ export const DishesScreen = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await Promise.all([fetchCategories(dispatch), fetchDish(dispatch)]);
+      try {
+        await Promise.all([fetchCategories(dispatch), fetchDish(dispatch)]);
+      } catch {
+        setError(true);
+      }
     };
     fetchData();
   }, []);
+
+  if(error){
+    return <ErrorPageDish />;
+  }
 
   return (
     <ContainerDish id="dishes">
@@ -44,17 +54,15 @@ export const DishesScreen = () => {
         onSelect={setSelectedCategory}
       />
       <Grid>
-        {(isFetching
-          ? Array.from({ length: 8 })
-          : filteredDishes
-        ).map((dish, index) => (
-          <DishCardSkeleton
-            key={index}
-            isLoading={isFetching}
-          >
-            {!isFetching && <DishCard dish={dish as Dish} onClick={setSelectedDish} />}
-          </DishCardSkeleton>
-        ))}
+        {(isFetching ? Array.from({ length: 8 }) : filteredDishes).map(
+          (dish, index) => (
+            <DishCardSkeleton key={index} isLoading={isFetching}>
+              {!isFetching && (
+                <DishCard dish={dish as Dish} onClick={setSelectedDish} />
+              )}
+            </DishCardSkeleton>
+          )
+        )}
       </Grid>
       <DishModal dish={selectedDish} onClose={() => setSelectedDish(null)} />
     </ContainerDish>
