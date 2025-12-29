@@ -1,5 +1,4 @@
 import type { FC } from "react";
-import { MdOutlineErrorOutline } from "react-icons/md";
 import { FaKitchenSet } from "react-icons/fa6";
 import styled from "styled-components";
 
