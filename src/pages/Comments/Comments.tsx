@@ -10,6 +10,7 @@ import {
 } from "../../domain/restaurant";
 import CommentsStyled from "./Comments.styled";
 import { ErrorPage } from "../../components/ErrorPage/ErrorPage";
+import CommentCardSkeleton from "../../components/CommentCard/components/CommentCardSkeleton/CommentCardSkeleton";
 
 const { TextArea } = Input;
 const { Title } = Typography;
@@ -21,6 +22,7 @@ export const CommentsPage: React.FC = () => {
   const { state, dispatch } = useRestaurantContext();
   const commentsData = state.comments;
   const [error, setError] = useState<Boolean>(false);
+  const isFetching = state.isFetching;
 
   const [newComment, setNewComment] = useState<CommentRestaurant>({
     author: "",
@@ -62,16 +64,22 @@ export const CommentsPage: React.FC = () => {
       </Title>
 
       <CommentsGrid>
-        {commentsData.map(({ author, content, id, rating, createdAt }) => (
-          <CommentCard
-            author={author}
-            content={content}
-            rating={rating}
-            createdAt={createdAt}
-            key={id}
-            id={id}
-          />
-        ))}
+        {(isFetching ? Array.from({ length: 5 }) : commentsData).map(
+          (comment, index) => (
+            <CommentCardSkeleton key={index} isLoading={isFetching}>
+              {!isFetching && (
+                <CommentCard
+                  author={(comment as CommentRestaurant)?.author as string}
+                  content={(comment as CommentRestaurant)?.content}
+                  rating={(comment as CommentRestaurant)?.rating}
+                  createdAt={(comment as CommentRestaurant)?.createdAt}
+                  key={(comment as CommentRestaurant)?.id}
+                  id={(comment as CommentRestaurant)?.id}
+                />
+              )}
+            </CommentCardSkeleton>
+          )
+        )}
       </CommentsGrid>
       <Flex justify="center" align="center" style={{ marginTop: 80 }}>
         <CommentForm>

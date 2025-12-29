@@ -24,6 +24,10 @@ export interface CommentRestaurant{
     avatarUrl?:string;
 };
 
+export interface SkeletonProps {
+  isLoading?: boolean;
+}
+
 export const SectionNameRestaurant = {
   Dishes: "Dishes",
   Comments: "Comments",

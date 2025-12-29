@@ -1,10 +1,7 @@
 import { Skeleton } from "antd";
 import type { FC, PropsWithChildren } from "react";
 import styled from "styled-components";
-
-interface SkeletonProps {
-  isLoading?: boolean;
-}
+import type { SkeletonProps } from "../../../../domain/restaurant";
 
 const Wrapper = styled.div`
   border-radius: 12px;
