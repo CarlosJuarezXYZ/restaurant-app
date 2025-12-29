@@ -72,7 +72,7 @@ export const ErrorPage: FC<ErrorPageProps> = ({section}) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Ir a mi portafolio
+          Ir a portafolio
         </PortfolioLink>
       </Card>
     </Container>
