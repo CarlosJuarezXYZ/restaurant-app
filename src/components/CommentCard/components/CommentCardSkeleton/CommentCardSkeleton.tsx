@@ -8,7 +8,7 @@ const CommentCardSkeleton: FC<PropsWithChildren<SkeletonProps>> = ({
   children,
   isLoading,
 }) => {
-  if (!isLoading) {
+  if (isLoading) {
     return (
       <StyledCard>
         <Header>
