@@ -1,6 +1,11 @@
 import type { FC } from "react";
-import { FaKitchenSet } from "react-icons/fa6";
 import styled from "styled-components";
+import type { SectionNameRestaurant } from "../../domain/restaurant";
+import { SectionConfigErrorData } from "../../utils/SectionConfigErrorData/SectionConfigErrorData";
+
+interface ErrorPageProps {
+  section:SectionNameRestaurant;
+}
 
 const Container = styled.div`
   display: flex;
@@ -47,19 +52,19 @@ const PortfolioLink = styled.a`
   }
 `;
 
-export const ErrorPageDish: FC = () => {
+export const ErrorPage: FC<ErrorPageProps> = ({section}) => {
+  const {icon,title,description} = SectionConfigErrorData[section];
   return (
     <Container>
       <Card>
         <IconWrapper>
-          <FaKitchenSet/>
+          {icon}
         </IconWrapper>
 
-        <Title>Ups… la cocina está teniendo un pequeño problema</Title>
+        <Title>{title}</Title>
 
         <Description>
-          Por favor, comunícate conmigo a través de mi portafolio para poder
-          resolverlo lo antes posible.
+         {description}
         </Description>
 
         <PortfolioLink

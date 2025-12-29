@@ -4,17 +4,23 @@ import { FaPaperPlane } from "react-icons/fa";
 import { CommentCard } from "../../components/CommentCard/CommentCard";
 import { useRestaurantContext } from "../../context/RestaurantContext";
 import { addComment, fetchComments } from "../../context/RestaurantAction";
-import type { CommentRestaurant } from "../../domain/restaurant";
+import {
+  SectionNameRestaurant,
+  type CommentRestaurant,
+} from "../../domain/restaurant";
 import CommentsStyled from "./Comments.styled";
+import { ErrorPage } from "../../components/ErrorPage/ErrorPage";
 
 const { TextArea } = Input;
 const { Title } = Typography;
 
-const { PageContainer, CommentForm, CommentsGrid, ButtonStyled } =  CommentsStyled;
+const { PageContainer, CommentForm, CommentsGrid, ButtonStyled } =
+  CommentsStyled;
 
 export const CommentsPage: React.FC = () => {
   const { state, dispatch } = useRestaurantContext();
   const commentsData = state.comments;
+  const [error, setError] = useState<Boolean>(false);
 
   const [newComment, setNewComment] = useState<CommentRestaurant>({
     author: "",
@@ -24,11 +30,19 @@ export const CommentsPage: React.FC = () => {
 
   useEffect(() => {
     const commentsData = async () => {
-      await fetchComments(dispatch as any);
+      try {
+        await fetchComments(dispatch as any);
+      } catch {
+        setError(true);
+      }
     };
 
     commentsData();
   }, []);
+
+  if (error) {
+    return <ErrorPage section={SectionNameRestaurant.Comments} />;
+  }
 
   const handleSubmit = async () => {
     if (!newComment.author || !newComment.content || !newComment.rating) {

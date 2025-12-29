@@ -22,4 +22,19 @@ export interface CommentRestaurant{
     rating:number;
     createdAt?:string;
     avatarUrl?:string;
-};  
+};
+
+export const SectionNameRestaurant = {
+  Dishes: "Dishes",
+  Comments: "Comments",
+} as const;
+
+export type SectionNameRestaurant =
+  typeof SectionNameRestaurant[keyof typeof SectionNameRestaurant];
+
+export type SectionConfig = {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+};
+

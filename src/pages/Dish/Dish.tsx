@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
-import type { Dish } from "../../domain/restaurant";
+import { SectionNameRestaurant, type Dish } from "../../domain/restaurant";
 import { FilterTabs } from "../../components/Tab/Tab";
 import { DishCard } from "../../components/DishCard/DishCard";
 import { DishModal } from "../../components/DishModal/DishModal";
@@ -7,7 +7,7 @@ import { fetchCategories, fetchDish } from "../../context/RestaurantAction";
 import { useRestaurantContext } from "../../context/RestaurantContext";
 import ContainerDishStyled from "./Dish.styled";
 import DishCardSkeleton from "../../components/DishCard/components/DishCardSkeleton/DishCard.skeleton";
-import { ErrorPageDish } from "../../components/ErrorPageDish/ErrorPageDish";
+import { ErrorPage } from "../../components/ErrorPage/ErrorPage";
 
 const { ContainerDish, Grid } = ContainerDishStyled;
 
@@ -43,7 +43,7 @@ export const DishesScreen = () => {
   }, []);
 
   if(error){
-    return <ErrorPageDish />;
+    return <ErrorPage section={SectionNameRestaurant.Dishes} />;
   }
 
   return (
